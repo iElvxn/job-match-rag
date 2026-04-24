@@ -896,7 +896,7 @@ Given 5 weeks and 2 people, implement in this order:
 8. Basic frontend
 
 **Implement after core is working:**
-9. Reranker (Cohere)
+9. Reranker (Cohere) — defer until pre-evaluation; skip for initial end-to-end pipeline
 10. RAGAS evaluation
 11. Ablation study
 12. Human evaluation

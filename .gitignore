@@ -15,8 +15,11 @@ frontend/node_modules/
 frontend/.next/
 frontend/out/
 
-# Data files (large CSVs)
-data/*.csv
+# Data files
+data/linkedin_jobs/
+data/sample_resumes/
+data/**/*.csv
+data/**/*.pdf
 
 # IDE
 .vscode/

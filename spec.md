@@ -66,7 +66,7 @@ Next.js Frontend
 | Frontend | Next.js + TypeScript + Tailwind CSS | Team already knows it |
 | Backend | FastAPI (Python) | Industry standard for ML backends |
 | Vector Database | Pinecone (free tier) | Purpose-built for vector search, no infra setup |
-| Embeddings | OpenAI text-embedding-ada-002 | Strong semantic representation |
+| Embeddings | sentence-transformers all-mpnet-base-v2 | Free, local, strong semantic representation |
 | LLM | OpenAI GPT-4 | Best instruction following for citation requirements |
 | PDF Parsing | PyPDF2 | Simple, reliable, no external dependencies |
 | RAG Framework | LangChain | Connects all pipeline components |

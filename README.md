@@ -6,9 +6,9 @@ A RAG (Retrieval-Augmented Generation) system that matches resumes to job postin
 
 1. User uploads a resume (PDF)
 2. Resume is parsed into plain text
-3. Hybrid retrieval (BM25 + dense embeddings) searches 123K+ job postings
-4. Cohere reranks top candidates to the most relevant chunks
-5. Skills are extracted deterministically before hitting the LLM
+3. Hybrid retrieval (BM25 + dense embeddings) searches 21K+ tech job postings
+4. Skills are extracted deterministically before hitting the LLM
+5. Cohere reranks top candidates (added pre-evaluation)
 6. GPT-4 generates a structured match analysis with exact quoted evidence from retrieved chunks
 7. Results displayed in the Next.js frontend
 
@@ -19,9 +19,9 @@ A RAG (Retrieval-Augmented Generation) system that matches resumes to job postin
 | Frontend | Next.js, TypeScript, Tailwind CSS |
 | Backend | FastAPI (Python) |
 | Vector DB | Pinecone (free tier) |
-| Embeddings | OpenAI text-embedding-ada-002 |
+| Embeddings | sentence-transformers all-mpnet-base-v2 (local, free) |
 | LLM | OpenAI GPT-4 |
-| Reranking | Cohere Rerank API |
+| Reranking | Cohere Rerank API (added pre-evaluation) |
 | PDF Parsing | PyPDF2 |
 | Evaluation | RAGAS |
 
@@ -58,10 +58,10 @@ job-match-rag/
 
 - Python 3.10+
 - Node.js 18+
-- OpenAI API key
-- Pinecone API key
-- Cohere API key
+- OpenAI API key (GPT-4 generation only)
+- Pinecone API key (free tier)
 - Kaggle account (for dataset download)
+- Cohere API key (only needed for evaluation)
 
 ### Backend
 

@@ -15,8 +15,7 @@ CHUNK_OVERLAP = 50
 
 def chunk_job(row: dict) -> list[dict]:
     """Split one job posting row into chunks for indexing."""
-    description = row.get("description") or ""
-    description = description.strip()
+    description = _safe(row.get("description")).strip()
     if not description:
         return []
 
@@ -25,9 +24,9 @@ def chunk_job(row: dict) -> list[dict]:
     job_id = str(row.get("job_id", ""))
     metadata = {
         "job_id":    job_id,
-        "title":     row.get("title") or "",
-        "company":   row.get("company_name") or "",
-        "location":  row.get("location") or "",
+        "title":     _safe(row.get("title")),
+        "company":   _safe(row.get("company_name")),
+        "location":  _safe(row.get("location")),
     }
 
     return [
@@ -52,6 +51,18 @@ def chunk_all_jobs(df: pd.DataFrame) -> list[dict]:
 
 
 # --- private helpers ---
+
+def _safe(val) -> str:
+    """Convert a value to string, treating NaN/None as empty string."""
+    if val is None:
+        return ""
+    try:
+        import math
+        if math.isnan(val):
+            return ""
+    except TypeError:
+        pass
+    return str(val)
 
 def _section_chunks(description: str) -> list[dict]:
     """

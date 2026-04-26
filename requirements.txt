@@ -18,7 +18,7 @@ langchain-openai==1.1.12
 langchain-community==0.4.1
 
 # Vector database
-pinecone==6.0.0
+pinecone==8.1.2
 
 # Evaluation
 ragas==0.4.3

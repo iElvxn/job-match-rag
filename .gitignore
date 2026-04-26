@@ -20,6 +20,8 @@ data/linkedin_jobs/
 data/sample_resumes/
 data/**/*.csv
 data/**/*.pdf
+data/*.pkl
+data/indexing_checkpoint.json
 
 # IDE
 .vscode/

@@ -6,7 +6,7 @@ A RAG (Retrieval-Augmented Generation) system that matches resumes to job postin
 
 1. User uploads a resume (PDF)
 2. Resume is parsed into plain text
-3. Hybrid retrieval (BM25 + dense embeddings) searches 21K+ tech job postings
+3. Hybrid retrieval (BM25 + dense embeddings) searches 123K+ job postings
 4. Skills are extracted deterministically before hitting the LLM
 5. Cohere reranks top candidates (added pre-evaluation)
 6. GPT-4 generates a structured match analysis with exact quoted evidence from retrieved chunks
@@ -47,7 +47,9 @@ job-match-rag/
 │       └── ablation.py        # Ablation study conditions
 ├── data/                      # Dataset lives here (not tracked by git)
 ├── scripts/
-│   └── download_data.py       # Download LinkedIn job postings from Kaggle
+│   ├── download_data.py       # Download LinkedIn job postings from Kaggle
+│   ├── run_indexing.py        # One-time: embed + upload chunks to Pinecone
+│   └── build_bm25.py          # One-time: build BM25 keyword index
 ├── requirements.txt
 └── .env                       # API keys (not tracked)
 ```
@@ -91,7 +93,11 @@ python scripts/download_data.py
 ### Index Job Postings (one-time)
 
 ```bash
+# Upload embeddings to Pinecone
 python scripts/run_indexing.py
+
+# Build BM25 keyword index
+python scripts/build_bm25.py
 ```
 
 ### Run the Backend

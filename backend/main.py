@@ -3,6 +3,8 @@ from fastapi import FastAPI, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.utils.pdf_parser import parse_resume
+from backend.rag.indexing import get_index
+from backend.rag.retrieval import load_bm25, hybrid_retrieve
 
 load_dotenv()
 
@@ -14,6 +16,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+index = get_index()
+bm25, chunks = load_bm25()
 
 
 @app.get("/health")
@@ -31,10 +36,11 @@ async def analyze(file: UploadFile):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    # Pipeline grows here as components are built:
-    # chunks   = hybrid_retrieve(resume_text)
-    # chunks   = rerank(resume_text, chunks)
-    # skills   = extract_skills(resume_text, chunks)
-    # analysis = generate(resume_text, chunks, skills)
+    results = hybrid_retrieve(resume_text, index, bm25, chunks)
 
-    return {"resume_text": resume_text}
+    # Pipeline grows here as components are built:
+    # results  = rerank(resume_text, results)
+    # skills   = extract_skills(resume_text, results)
+    # analysis = generate(resume_text, results, skills)
+
+    return {"matches": results}

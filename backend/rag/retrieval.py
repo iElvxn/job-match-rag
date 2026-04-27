@@ -72,7 +72,10 @@ def reciprocal_rank_fusion(dense_results: list[dict], bm25_results: list[dict], 
 
 
 def hybrid_retrieve(resume_text: str, index, bm25, chunks: list[dict], k: int = 30) -> list[dict]:
-    """Run dense and BM25 retrieval in parallel, then fuse results with RRF."""
-    dense_res = dense_retrieve(resume_text, index, k)
-    bm25_res = bm25_retrieve(resume_text, bm25, chunks, k)
+    """Run dense and BM25 retrieval concurrently, then fuse results with RRF."""
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        f_dense = pool.submit(dense_retrieve, resume_text, index, k)
+        f_bm25  = pool.submit(bm25_retrieve, resume_text, bm25, chunks, k)
+        dense_res, bm25_res = f_dense.result(), f_bm25.result()
     return reciprocal_rank_fusion(dense_res, bm25_res)

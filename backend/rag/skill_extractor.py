@@ -1,4 +1,5 @@
 import re
+
 from rapidfuzz import fuzz, process
 
 SKILLS = [
@@ -51,7 +52,49 @@ def extract_skills(text: str) -> set[str]:
     return matched
 
 
-def get_skill_gap(resume_text: str, results: list[dict], chunk_lookup: dict[str, str]) -> dict:
+def compute_market_intelligence(results: list[dict], chunk_lookup: dict[str, str]) -> dict:
+    """
+    Compute per-skill frequency across retrieved jobs before calling the LLM.
+
+    Groups chunks by job_id first to avoid double-counting multi-chunk jobs,
+    then runs extract_skills once per unique job.
+
+    Returns skill_frequency sorted by count descending, total job count,
+    and pre-formatted market_summary strings for injection into the LLM prompt.
+    """
+    job_texts: dict[str, str] = {}
+    for r in results:
+        jid = r["metadata"].get("job_id", "")
+        job_texts[jid] = job_texts.get(jid, "") + " " + chunk_lookup.get(r["chunk_id"], "")
+
+    total_jobs = len(job_texts)
+
+    skill_counts: dict[str, list[str]] = {}
+    for jid, text in job_texts.items():
+        for skill in extract_skills(text):
+            skill_counts.setdefault(skill, []).append(jid)
+
+    skill_frequency = {
+        skill: {"count": len(job_ids), "job_ids": job_ids}
+        for skill, job_ids in sorted(skill_counts.items(), key=lambda x: len(x[1]), reverse=True)
+    }
+
+    return {
+        "skill_frequency": skill_frequency,
+        "total_jobs": total_jobs,
+        "market_summary": [
+            f"{skill}: {d['count']}/{total_jobs} matched jobs"
+            for skill, d in skill_frequency.items()
+        ],
+    }
+
+
+def get_skill_gap(
+    resume_text: str,
+    results: list[dict],
+    chunk_lookup: dict[str, str],
+    market_intel: dict | None = None,
+) -> dict:
     """
     Compare skills in the resume against skills required by retrieved job chunks.
 
@@ -59,16 +102,25 @@ def get_skill_gap(resume_text: str, results: list[dict], chunk_lookup: dict[str,
         resume_text: raw resume text
         results: hybrid_retrieve output (list of chunk dicts with chunk_id)
         chunk_lookup: mapping of chunk_id -> chunk text, built from BM25 chunks at startup
+        market_intel: optional output of compute_market_intelligence, used to sort gaps by frequency
 
-    Returns dict with resume_skills, job_skills, and gaps.
+    Returns dict with resume_skills, job_skills, and gaps sorted by job frequency.
     """
     resume_skills = extract_skills(resume_text)
 
     job_text = " ".join(chunk_lookup.get(r["chunk_id"], "") for r in results)
     job_skills = extract_skills(job_text)
 
+    raw_gaps = job_skills - resume_skills
+
+    if market_intel:
+        freq = market_intel["skill_frequency"]
+        gaps_sorted = sorted(raw_gaps, key=lambda s: freq.get(s, {}).get("count", 0), reverse=True)
+    else:
+        gaps_sorted = sorted(raw_gaps)
+
     return {
         "resume_skills": sorted(resume_skills),
-        "job_skills": sorted(job_skills),
-        "gaps": sorted(job_skills - resume_skills),
+        "job_skills":    sorted(job_skills),
+        "gaps":          gaps_sorted,
     }

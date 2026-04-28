@@ -119,7 +119,17 @@
       border: 1px solid #e5e7eb;
     }
     .rec-skill { font-weight: 600; color: #2563eb; }
-    .rec-action { color: #444; }
+    .rec-freq { font-size: 0.78rem; color: #666; margin-left: 6px; }
+    .rec-action { color: #444; margin-top: 2px; }
+    .missing-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+    .missing-item {
+      font-size: 0.82rem;
+      color: #991b1b;
+      background: #fff1f2;
+      border-left: 3px solid #f87171;
+      padding: 6px 10px;
+      border-radius: 0 4px 4px 0;
+    }
 
     .error { color: #dc2626; background: #fee2e2; padding: 12px 16px; border-radius: 6px; margin-bottom: 24px; font-size: 0.9rem; }
   </style>
@@ -208,6 +218,7 @@
           ...(job.evidence?.resume || []),
           ...(job.evidence?.job || []),
         ];
+        const missing = job.missing_alignment || [];
         return `
           <div class="job-card">
             <div class="job-title">${job.title}</div>
@@ -216,6 +227,10 @@
             <div class="citations">
               ${allEvidence.map(c => `<div class="citation">"${c}"</div>`).join("")}
             </div>
+            ${missing.length ? `
+            <div class="missing-list">
+              ${missing.map(m => `<div class="missing-item">✗ "${m.job_requirement}"</div>`).join("")}
+            </div>` : ""}
             <a class="linkedin-link"
                href="https://www.linkedin.com/jobs/view/${job.job_id}/"
                target="_blank" rel="noopener">
@@ -254,15 +269,18 @@
         skill_data.resume_skills.map(s => `<span class="badge badge-green">${s}</span>`).join("");
 
       document.getElementById("gapSkills").innerHTML =
-        skill_data.gaps.map(s => `<span class="badge badge-red">${s}</span>`).join("");
+        skill_data.gaps.map(s => {
+          const freq = market_intel?.skill_frequency?.[s];
+          const label = freq ? `${s} (${freq.count}/${market_intel.total_jobs})` : s;
+          return `<span class="badge badge-red">${label}</span>`;
+        }).join("");
 
-      // Recommendations — handle both string and object formats from GPT
       document.getElementById("recommendations").innerHTML =
         analysis.recommendations.map(r => {
           if (typeof r === "string") return `<li class="rec-item">${r}</li>`;
           return `<li class="rec-item">
-            <span class="rec-skill">${r.skill}</span> —
-            <span class="rec-action">${r.action}</span>
+            <div><span class="rec-skill">${r.skill}</span>${r.frequency ? ` <span class="rec-freq">${r.frequency}</span>` : ""}</div>
+            <div class="rec-action">${r.action}</div>
           </li>`;
         }).join("");
 

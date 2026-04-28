@@ -108,15 +108,17 @@ def get_skill_gap(
     """
     resume_skills = extract_skills(resume_text)
 
-    job_text = " ".join(chunk_lookup.get(r["chunk_id"], "") for r in results)
-    job_skills = extract_skills(job_text)
-
-    raw_gaps = job_skills - resume_skills
-
     if market_intel:
+        # Derive job_skills from market intel — already computed per-job and grounded
+        # in retrieved postings. This ensures gaps are strictly retrieval-driven.
         freq = market_intel["skill_frequency"]
-        gaps_sorted = sorted(raw_gaps, key=lambda s: freq.get(s, {}).get("count", 0), reverse=True)
+        job_skills = set(freq.keys())
+        raw_gaps = job_skills - resume_skills
+        gaps_sorted = sorted(raw_gaps, key=lambda s: freq[s]["count"], reverse=True)
     else:
+        job_text = " ".join(chunk_lookup.get(r["chunk_id"], "") for r in results)
+        job_skills = extract_skills(job_text)
+        raw_gaps = job_skills - resume_skills
         gaps_sorted = sorted(raw_gaps)
 
     return {

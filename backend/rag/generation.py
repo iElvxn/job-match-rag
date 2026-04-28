@@ -24,7 +24,13 @@ Return valid JSON in this exact schema:
       "evidence": {
         "resume": ["exact phrases from the resume"],
         "job": ["exact phrases from the job description"]
-      }
+      },
+      "missing_alignment": [
+        {
+          "job_requirement": "exact phrase from job description",
+          "reason": "not found in resume"
+        }
+      ]
     }
   ],
   "skill_gaps": [
@@ -37,8 +43,9 @@ Return valid JSON in this exact schema:
   "recommendations": [
     {
       "skill": "string",
-      "reason": "why this skill matters based on retrieved jobs",
-      "action": "specific, concrete next step"
+      "frequency": "X/Y jobs — copy from MARKET INTELLIGENCE",
+      "reason": "which types of roles require this and why it matters",
+      "action": "specific project or task to build this skill (e.g. deploy X using Y on Z)"
     }
   ]
 }

@@ -118,12 +118,13 @@ def _group_by_job(results: list[dict], chunk_lookup: dict[str, str]) -> list[dic
         job_id = result["metadata"].get("job_id", "")
         if job_id not in jobs or result["score"] > jobs[job_id]["score"]:
             jobs[job_id] = {
-                "job_id":   job_id,
-                "title":    result["metadata"].get("title", ""),
-                "company":  result["metadata"].get("company", ""),
-                "location": result["metadata"].get("location", ""),
-                "score":    result["score"],
-                "text":     chunk_lookup.get(result["chunk_id"], ""),
+                "job_id":     job_id,
+                "title":      result["metadata"].get("title", ""),
+                "company":    result["metadata"].get("company", ""),
+                "location":   result["metadata"].get("location", ""),
+                "chunk_type": result["metadata"].get("chunk_type", ""),
+                "score":      result["score"],
+                "text":       chunk_lookup.get(result["chunk_id"], ""),
             }
     return sorted(jobs.values(), key=lambda x: x["score"], reverse=True)[:MAX_JOBS]
 
@@ -159,8 +160,9 @@ def _build_prompt(
 
     jobs_section = "JOB POSTINGS:"
     for i, job in enumerate(jobs, 1):
+        section_label = f" [{job['chunk_type']}]" if job.get("chunk_type") else ""
         jobs_section += (
-            f"\n\n[{i}] {job['title']} at {job['company']} ({job['location']})\n"
+            f"\n\n[{i}] {job['title']} at {job['company']} ({job['location']}){section_label}\n"
             f"Job ID: {job['job_id']}\n"
             f"{_truncate(job['text'], MAX_CHUNK_WORDS)}"
         )

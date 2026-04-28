@@ -44,6 +44,27 @@ async def analyze(file: UploadFile):
     skill_data   = get_skill_gap(resume_text, results, chunk_lookup, market_intel)
     analysis     = generate_analysis(resume_text, results, skill_data, chunk_lookup, market_intel)
 
+    # Enrich analysis matches with real computed scores and description text
+    resume_skills_set = set(skill_data["resume_skills"])
+    job_skills_map = market_intel.get("job_skills_map", {})
+
+    # Best chunk per job: highest RRF score determines which chunk text to show
+    job_best_chunk: dict[str, tuple[float, str]] = {}
+    for r in results:
+        jid = r["metadata"].get("job_id", "")
+        if jid not in job_best_chunk or r["score"] > job_best_chunk[jid][0]:
+            job_best_chunk[jid] = (r["score"], r["chunk_id"])
+
+    for match in analysis.get("matches", []):
+        jid = match.get("job_id", "")
+        job_skills = set(job_skills_map.get(jid, []))
+        _, chunk_id = job_best_chunk.get(jid, (0, ""))
+        match["rrf_score"]    = round(job_best_chunk.get(jid, (0,))[0], 4)
+        match["skill_overlap"] = round(
+            len(resume_skills_set & job_skills) / len(job_skills), 2
+        ) if job_skills else 0.0
+        match["description"] = chunk_lookup.get(chunk_id, "")
+
     # Pipeline grows here as components are built:
     # results = rerank(resume_text, results)
 

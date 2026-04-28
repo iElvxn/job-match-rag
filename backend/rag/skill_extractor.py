@@ -79,9 +79,16 @@ def compute_market_intelligence(results: list[dict], chunk_lookup: dict[str, str
         for skill, job_ids in sorted(skill_counts.items(), key=lambda x: len(x[1]), reverse=True)
     }
 
+    # Per-job skill sets — used by main.py to compute overlap with resume skills
+    job_skills_map: dict[str, list[str]] = {
+        jid: sorted(extract_skills(text))
+        for jid, text in job_texts.items()
+    }
+
     return {
         "skill_frequency": skill_frequency,
-        "total_jobs": total_jobs,
+        "job_skills_map":  job_skills_map,
+        "total_jobs":      total_jobs,
         "market_summary": [
             f"{skill}: {d['count']}/{total_jobs} matched jobs"
             for skill, d in skill_frequency.items()

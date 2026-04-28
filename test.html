@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Job Match RAG</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      padding: 40px 20px;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    h1 { font-size: 1.8rem; margin-bottom: 4px; }
+    .subtitle { color: #666; margin-bottom: 32px; font-size: 0.95rem; }
+
+    /* Upload */
+    .upload-card {
+      background: white;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .upload-card input[type="file"] { flex: 1; font-size: 0.95rem; }
+    .btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn:disabled { background: #93c5fd; cursor: not-allowed; }
+    .btn:hover:not(:disabled) { background: #1d4ed8; }
+
+    .loading { color: #666; font-size: 0.9rem; margin-bottom: 24px; display: none; }
+
+    h2 { font-size: 1.2rem; margin-bottom: 16px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+
+    /* Job match cards */
+    .matches { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
+    @media (max-width: 600px) { .matches { grid-template-columns: 1fr; } }
+
+    .job-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+    }
+    .job-title { font-weight: 600; font-size: 1rem; margin-bottom: 2px; }
+    .job-meta { color: #666; font-size: 0.85rem; margin-bottom: 12px; }
+    .job-reasoning { font-size: 0.9rem; margin-bottom: 12px; line-height: 1.5; flex: 1; }
+    .citations { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .citation {
+      background: #eff6ff;
+      border-left: 3px solid #2563eb;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      color: #1e3a5f;
+      border-radius: 0 4px 4px 0;
+      font-style: italic;
+    }
+    .linkedin-link {
+      display: inline-block;
+      font-size: 0.82rem;
+      color: #0a66c2;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: auto;
+    }
+    .linkedin-link:hover { text-decoration: underline; }
+
+    /* Market intelligence */
+    .market-section {
+      background: white;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      margin-bottom: 40px;
+    }
+    .market-subtitle { color: #666; font-size: 0.85rem; margin-bottom: 16px; }
+    .intel-list { display: flex; flex-direction: column; gap: 10px; }
+    .intel-row { display: flex; align-items: center; gap: 12px; }
+    .intel-skill { width: 130px; font-size: 0.85rem; font-weight: 500; flex-shrink: 0; }
+    .intel-bar-wrap { flex: 1; background: #e5e7eb; border-radius: 999px; height: 8px; overflow: hidden; }
+    .intel-bar { height: 100%; background: #2563eb; border-radius: 999px; transition: width 0.4s ease; }
+    .intel-freq { width: 70px; text-align: right; font-size: 0.8rem; color: #666; flex-shrink: 0; }
+
+    /* Skills */
+    .skills-section { background: white; border-radius: 10px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 40px; }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .skills-group h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; }
+    .badge { padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 500; }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-red   { background: #fee2e2; color: #991b1b; }
+
+    /* Recommendations */
+    .recommendations { background: white; border-radius: 10px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .rec-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .rec-item {
+      padding: 12px 14px;
+      background: #fafafa;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      border: 1px solid #e5e7eb;
+    }
+    .rec-skill { font-weight: 600; color: #2563eb; }
+    .rec-freq { font-size: 0.78rem; color: #666; margin-left: 6px; }
+    .rec-action { color: #444; margin-top: 2px; }
+    .missing-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+    .missing-item {
+      font-size: 0.82rem;
+      color: #991b1b;
+      background: #fff1f2;
+      border-left: 3px solid #f87171;
+      padding: 6px 10px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .error { color: #dc2626; background: #fee2e2; padding: 12px 16px; border-radius: 6px; margin-bottom: 24px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Job Match RAG</h1>
+    <p class="subtitle">Upload your resume to find matching jobs and identify skill gaps.</p>
+
+    <div class="upload-card">
+      <input type="file" id="resume" accept=".pdf" />
+      <button class="btn" id="analyzeBtn" onclick="analyze()">Analyze</button>
+    </div>
+
+    <p class="loading" id="loading">Analyzing your resume — this takes 20–30 seconds...</p>
+    <div class="error" id="error" style="display:none"></div>
+
+    <div id="results" style="display:none">
+      <h2>Top Job Matches</h2>
+      <div class="matches" id="matches"></div>
+
+      <div class="market-section" id="marketSection" style="display:none">
+        <h2>Market Intelligence</h2>
+        <p class="market-subtitle" id="marketSubtitle"></p>
+        <div class="intel-list" id="intelList"></div>
+      </div>
+
+      <div class="skills-section">
+        <h2>Skill Gap Analysis</h2>
+        <div class="skills-grid">
+          <div class="skills-group">
+            <h3>Your Skills</h3>
+            <div class="badges" id="resumeSkills"></div>
+          </div>
+          <div class="skills-group">
+            <h3>Missing Skills</h3>
+            <div class="badges" id="gapSkills"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recommendations">
+        <h2>Recommendations</h2>
+        <ul class="rec-list" id="recommendations"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function analyze() {
+      const file = document.getElementById("resume").files[0];
+      if (!file) return alert("Select a PDF first.");
+
+      const btn = document.getElementById("analyzeBtn");
+      btn.disabled = true;
+      document.getElementById("loading").style.display = "block";
+      document.getElementById("error").style.display = "none";
+      document.getElementById("results").style.display = "none";
+
+      const form = new FormData();
+      form.append("file", file);
+
+      try {
+        const res = await fetch("http://localhost:8000/analyze", { method: "POST", body: form });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.detail || `Server error ${res.status}`);
+        }
+        const data = await res.json();
+        render(data);
+      } catch (e) {
+        document.getElementById("error").textContent = "Error: " + e.message;
+        document.getElementById("error").style.display = "block";
+      } finally {
+        btn.disabled = false;
+        document.getElementById("loading").style.display = "none";
+      }
+    }
+
+    function render(data) {
+      const { analysis, skill_data, market_intel } = data;
+
+      // Job match cards
+      document.getElementById("matches").innerHTML = analysis.matches.map(job => {
+        const allEvidence = [
+          ...(job.evidence?.resume || []),
+          ...(job.evidence?.job || []),
+        ];
+        const missing = job.missing_alignment || [];
+        return `
+          <div class="job-card">
+            <div class="job-title">${job.title}</div>
+            <div class="job-meta">${job.company}</div>
+            <div class="job-reasoning">${job.match_reasoning}</div>
+            <div class="citations">
+              ${allEvidence.map(c => `<div class="citation">"${c}"</div>`).join("")}
+            </div>
+            ${missing.length ? `
+            <div class="missing-list">
+              ${missing.map(m => `<div class="missing-item">✗ "${m.job_requirement}"</div>`).join("")}
+            </div>` : ""}
+            <a class="linkedin-link"
+               href="https://www.linkedin.com/jobs/view/${job.job_id}/"
+               target="_blank" rel="noopener">
+              View on LinkedIn →
+            </a>
+          </div>`;
+      }).join("");
+
+      // Market intelligence bar chart
+      if (market_intel && market_intel.market_summary?.length) {
+        const top = market_intel.market_summary.slice(0, 10);
+        const maxCount = market_intel.total_jobs;
+
+        document.getElementById("marketSubtitle").textContent =
+          `Skills most in demand across your ${market_intel.total_jobs} matched jobs`;
+
+        document.getElementById("intelList").innerHTML = top.map(line => {
+          const [skill, rest] = line.split(": ");
+          const count = parseInt(rest);
+          const pct = Math.round((count / maxCount) * 100);
+          return `
+            <div class="intel-row">
+              <span class="intel-skill">${skill}</span>
+              <div class="intel-bar-wrap">
+                <div class="intel-bar" style="width:${pct}%"></div>
+              </div>
+              <span class="intel-freq">${rest} jobs</span>
+            </div>`;
+        }).join("");
+
+        document.getElementById("marketSection").style.display = "block";
+      }
+
+      // Skills
+      document.getElementById("resumeSkills").innerHTML =
+        skill_data.resume_skills.map(s => `<span class="badge badge-green">${s}</span>`).join("");
+
+      document.getElementById("gapSkills").innerHTML =
+        skill_data.gaps.map(s => {
+          const freq = market_intel?.skill_frequency?.[s];
+          const label = freq ? `${s} (${freq.count}/${market_intel.total_jobs})` : s;
+          return `<span class="badge badge-red">${label}</span>`;
+        }).join("");
+
+      document.getElementById("recommendations").innerHTML =
+        analysis.recommendations.map(r => {
+          if (typeof r === "string") return `<li class="rec-item">${r}</li>`;
+          return `<li class="rec-item">
+            <div><span class="rec-skill">${r.skill}</span>${r.frequency ? ` <span class="rec-freq">${r.frequency}</span>` : ""}</div>
+            <div class="rec-action">${r.action}</div>
+          </li>`;
+        }).join("");
+
+      document.getElementById("results").style.display = "block";
+    }
+  </script>
+</body>
+</html>

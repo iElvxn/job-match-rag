@@ -1,6 +1,9 @@
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, UploadFile
+from fastapi import FastAPI, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 
 from backend.utils.pdf_parser import parse_resume
 from backend.rag.indexing import get_index
@@ -10,7 +13,10 @@ from backend.rag.generation import generate_analysis
 
 load_dotenv()
 
+limiter = Limiter(key_func=get_remote_address)
 app = FastAPI(title="Job Match RAG")
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,7 +36,8 @@ def health():
 
 
 @app.post("/analyze")
-async def analyze(file: UploadFile):
+@limiter.limit("3/minute")
+async def analyze(request: Request, file: UploadFile):
     if not file.filename.endswith(".pdf"):
         raise HTTPException(status_code=400, detail="File must be a PDF.")
 

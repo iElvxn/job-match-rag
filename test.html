@@ -60,7 +60,17 @@
       flex-direction: column;
     }
     .job-title { font-weight: 600; font-size: 1rem; margin-bottom: 2px; }
-    .job-meta { color: #666; font-size: 0.85rem; margin-bottom: 12px; }
+    .job-meta { color: #666; font-size: 0.85rem; margin-bottom: 6px; }
+    .job-scores { display: flex; gap: 12px; margin-bottom: 12px; }
+    .score-pill {
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 500;
+      background: #f0f9ff;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
     .job-reasoning { font-size: 0.9rem; margin-bottom: 12px; line-height: 1.5; flex: 1; }
     .citations { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
     .citation {
@@ -81,6 +91,28 @@
       margin-top: auto;
     }
     .linkedin-link:hover { text-decoration: underline; }
+    details { margin-top: 12px; }
+    details summary {
+      font-size: 0.82rem;
+      color: #2563eb;
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+    }
+    details summary::before { content: "▶ "; font-size: 0.7rem; }
+    details[open] summary::before { content: "▼ "; font-size: 0.7rem; }
+    details summary::-webkit-details-marker { display: none; }
+    .description-text {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: #444;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      background: #f9fafb;
+      border-radius: 6px;
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+    }
 
     /* Market intelligence */
     .market-section {
@@ -223,6 +255,10 @@
           <div class="job-card">
             <div class="job-title">${job.title}</div>
             <div class="job-meta">${job.company}</div>
+            <div class="job-scores">
+              ${job.rrf_score != null ? `<span class="score-pill">RRF ${job.rrf_score}</span>` : ""}
+              ${job.skill_overlap != null ? `<span class="score-pill">Skill overlap ${Math.round(job.skill_overlap * 100)}%</span>` : ""}
+            </div>
             <div class="job-reasoning">${job.match_reasoning}</div>
             <div class="citations">
               ${allEvidence.map(c => `<div class="citation">"${c}"</div>`).join("")}
@@ -231,6 +267,11 @@
             <div class="missing-list">
               ${missing.map(m => `<div class="missing-item">✗ "${m.job_requirement}"</div>`).join("")}
             </div>` : ""}
+            ${job.description ? `
+            <details>
+              <summary>Show job description</summary>
+              <div class="description-text">${job.description.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+            </details>` : ""}
             <a class="linkedin-link"
                href="https://www.linkedin.com/jobs/view/${job.job_id}/"
                target="_blank" rel="noopener">

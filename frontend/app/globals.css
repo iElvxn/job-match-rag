@@ -1,26 +1,162 @@
 @import "tailwindcss";
 
+/* Design tokens */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0A0A0A;
+  --surface: #111111;
+  --surface-2: #191919;
+  --border: #242424;
+  --border-2: #2E2E2E;
+  --accent: #CCFF00;
+  --accent-dim: rgba(204, 255, 0, 0.08);
+  --coral: #FF4D0F;
+  --coral-dim: rgba(255, 77, 15, 0.08);
+  --lavender: #9B8FFF;
+  --amber: #FFB800;
+  --text: #F0EDE5;
+  --text-2: #888882;
+  --text-3: #484844;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-bebas);
+  --font-body: var(--font-figtree);
+  --color-accent: #CCFF00;
+  --color-coral: #FF4D0F;
+  --color-lavender: #9B8FFF;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-figtree), -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Animations ──────────────────────────────── */
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes barGrow {
+  from { width: 0; }
+  to   { width: var(--w, 0%); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 8px var(--accent); }
+  50%       { box-shadow: 0 0 20px var(--accent); }
+}
+
+/* ── Ticker ───────────────────────────────────── */
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 35s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+
+/* ── Bar fills ────────────────────────────────── */
+
+.bar-fill {
+  width: 0;
+  animation: barGrow 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 300ms);
+}
+
+/* ── Upload zone ──────────────────────────────── */
+
+.upload-zone {
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  border: 2px dashed var(--border-2);
+  border-radius: 16px;
+}
+.upload-zone:hover,
+.upload-zone.over {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* ── Job card ─────────────────────────────────── */
+
+.job-card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  border: 1px solid var(--border);
+}
+.job-card:hover {
+  border-color: rgba(204, 255, 0, 0.3);
+  box-shadow: 0 0 0 1px rgba(204, 255, 0, 0.08), 0 8px 40px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ── Reset button ─────────────────────────────── */
+
+.reset-btn {
+  transition: border-color 0.2s, color 0.2s;
+  border: 1px solid var(--border-2);
+}
+.reset-btn:hover {
+  border-color: var(--text-2);
+  color: var(--text);
+}
+
+/* ── Expander button ──────────────────────────── */
+
+.expander-btn {
+  transition: color 0.2s, border-color 0.2s;
+  border: 1px solid var(--border);
+}
+.expander-btn:hover {
+  color: var(--text);
+  border-color: var(--border-2);
+}
+
+/* ── Fade-up utility ──────────────────────────── */
+
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 0.5s ease-out forwards;
+  animation-delay: calc(var(--d, 0) * 80ms);
+}
+
+/* ── Scrollbar ────────────────────────────────── */
+
+::-webkit-scrollbar       { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 2px; }
+
+/* ── Selection ────────────────────────────────── */
+
+::selection {
+  background: rgba(204, 255, 0, 0.2);
+  color: var(--text);
 }

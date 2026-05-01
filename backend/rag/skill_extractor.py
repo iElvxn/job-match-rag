@@ -96,6 +96,81 @@ def compute_market_intelligence(results: list[dict], chunk_lookup: dict[str, str
     }
 
 
+_SENIORITY_MAP = {
+    "intern":  ["intern", "unknown"],
+    "entry":   ["intern", "entry", "unknown"],
+    "mid":     ["entry", "mid", "unknown"],
+    "senior":  ["mid", "senior", "unknown"],
+    "staff":   ["senior", "staff", "unknown"],
+}
+
+_TITLE_KW = [
+    ("intern",       ["intern", "internship", "co-op", "coop", "apprentice"]),
+    ("staff",        ["principal", "distinguished", "fellow", "staff engineer"]),
+    ("senior",       ["senior", "sr.", "tech lead"]),
+    ("mid",          ["engineer ii"]),
+    ("entry",        ["junior", "jr.", "new grad", "associate", "engineer i"]),
+]
+
+_YEAR_SPAN_RE = re.compile(
+    r"(\d{4})\s*[-–]\s*(present|\d{4})",
+    re.IGNORECASE,
+)
+
+_STUDENT_KW = ("gpa", "expected graduation", "bachelor", "b.s.", "b.e.", "university", "college")
+
+
+def _resume_year_span(text: str) -> int:
+    """Estimate total years of experience from date ranges in resume."""
+    import datetime
+    current_year = datetime.date.today().year
+    total = 0
+    for m in _YEAR_SPAN_RE.finditer(text):
+        start = int(m.group(1))
+        end = current_year if m.group(2).lower() == "present" else int(m.group(2))
+        total += max(0, end - start)
+    return total
+
+
+def _span_to_level(years: int) -> str:
+    if years < 2:
+        return "entry"
+    if years < 6:
+        return "mid"
+    if years < 10:
+        return "senior"
+    return "staff"
+
+
+def detect_resume_seniority(resume_text: str) -> list[str]:
+    """
+    Infer candidate seniority from resume text and return the allowed job seniority levels.
+
+    Detection priority:
+      1. Title keywords held (e.g. "senior software engineer" in resume)
+      2. Year spans in work history
+      3. Student keywords → entry
+      4. Default → entry
+    """
+    lower = resume_text.lower()
+
+    # 1. Title keywords
+    for level, keywords in _TITLE_KW:
+        if any(kw in lower for kw in keywords):
+            return _SENIORITY_MAP[level]
+
+    # 2. Year spans
+    years = _resume_year_span(resume_text)
+    if years > 0:
+        return _SENIORITY_MAP[_span_to_level(years)]
+
+    # 3. Student signals
+    if any(kw in lower for kw in _STUDENT_KW):
+        return _SENIORITY_MAP["entry"]
+
+    return _SENIORITY_MAP["entry"]
+
+
 def get_skill_gap(
     resume_text: str,
     results: list[dict],

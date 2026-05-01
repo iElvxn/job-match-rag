@@ -2,6 +2,9 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import pandas as pd
 from backend.rag.chunking import chunk_all_jobs
 from backend.rag.retrieval import build_bm25

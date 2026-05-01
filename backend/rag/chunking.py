@@ -13,6 +13,63 @@ CHUNK_TOKEN_SIZE = 400
 CHUNK_OVERLAP = 50
 
 
+_YEARS_RE = re.compile(
+    r"(\d+)\s*(?:\+|to|-)?\s*(\d+)?\s+years?",
+    re.IGNORECASE,
+)
+
+
+def _years_to_seniority(years: int) -> str:
+    if years <= 1:
+        return "entry"
+    if years <= 4:
+        return "mid"
+    if years <= 8:
+        return "senior"
+    return "staff"
+
+
+def _extract_years(description: str) -> int | None:
+    matches = []
+    for m in _YEARS_RE.findall(description[:2000]):
+        low  = int(m[0])
+        high = int(m[1]) if m[1] else low
+        matches.append(max(low, high))
+    return max(matches) if matches else None
+
+
+def _detect_seniority(title: str, description: str = "") -> str:
+    t = title.lower()
+
+    # Intern first — unambiguous even before staff/senior checks
+    if any(kw in t for kw in ("intern", "internship", "co-op", "coop", "apprentice")):
+        return "intern"
+
+    # Staff / principal
+    if any(kw in t for kw in ("principal", "distinguished", "fellow", "staff engineer")):
+        return "staff"
+
+    # Senior
+    if any(kw in t for kw in ("senior", "sr.", "tech lead")) or "engineer iii" in t:
+        return "senior"
+
+    # Mid
+    if "engineer ii" in t:
+        return "mid"
+
+    # Entry
+    if any(kw in t for kw in ("junior", "jr.", "new grad", "associate")) or "engineer i" in t:
+        return "entry"
+
+    # Description fallback — parse years-of-experience requirements
+    if description:
+        years = _extract_years(description)
+        if years is not None:
+            return _years_to_seniority(years)
+
+    return "unknown"
+
+
 def chunk_job(row: dict) -> list[dict]:
     """Split one job posting row into chunks for indexing."""
     description = _safe(row.get("description")).strip()
@@ -22,11 +79,13 @@ def chunk_job(row: dict) -> list[dict]:
     chunks = _section_chunks(description) or _fixed_chunks(description)
 
     job_id = str(row.get("job_id", ""))
+    title  = _safe(row.get("title"))
     metadata = {
         "job_id":    job_id,
-        "title":     _safe(row.get("title")),
+        "title":     title,
         "company":   _safe(row.get("company_name")),
         "location":  _safe(row.get("location")),
+        "seniority": _detect_seniority(title, description),
     }
 
     return [

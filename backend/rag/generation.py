@@ -140,8 +140,8 @@ def _build_prompt(
     skill_data: dict,
     market_intel: dict | None,
 ) -> str:
-    resume_section = f"RESUME:\n{_truncate(resume_text, 500)}"
-
+    resume_section = f"RESUME:\n{_truncate(resume_text, 1500)}" #ima test with out truncating
+    
     skills_section = (
         f"EXTRACTED SKILLS:\n"
         f"  Resume skills: {', '.join(skill_data['resume_skills']) or 'none detected'}\n"

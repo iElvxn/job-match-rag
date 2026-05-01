@@ -61,21 +61,27 @@ STRICT RULES:
 2. MATCH REASONING
 - Must explicitly connect resume evidence → job requirement
 - Do NOT give generic explanations.
+- If a job requires significantly more experience than the resume demonstrates (e.g. "5+ years" when the resume shows internships or <2 years), you MUST reflect this in missing_alignment and lower your confidence in the match. Do NOT rationalize seniority mismatches away.
 
-3. SKILL GAPS (RETRIEVAL-DRIVEN)
+3. EXPERIENCE LEVEL (MANDATORY CHECK)
+- Before including any match, check whether the job's required years of experience aligns with the resume.
+- If the job title or description contains "Senior", "Staff", "Principal", "Lead", "Director", or requires "5+ years" / "7+ years" / "10+ years" and the resume does not demonstrate equivalent experience, add it to missing_alignment with job_requirement set to the exact experience phrase and reason set to what the resume actually shows.
+- Do NOT exclude these jobs entirely — include them in matches but surface the gap clearly.
+
+4. SKILL GAPS (RETRIEVAL-DRIVEN)
 - ONLY include skills that appear in retrieved job postings
 - Use the MARKET INTELLIGENCE section for frequency counts — do NOT compute yourself
 - Each skill must include exact quoted evidence from job descriptions
 
-4. RECOMMENDATIONS
+5. RECOMMENDATIONS
 - Must be derived ONLY from identified skill gaps
 - Must reference job demand frequency from MARKET INTELLIGENCE
 - Must be actionable (e.g., build X, learn Y, implement Z)
 
-5. NO HALLUCINATIONS
+6. NO HALLUCINATIONS
 - Do NOT invent skills, experience, or job requirements
 
-6. OUTPUT FORMAT
+7. OUTPUT FORMAT
 - Return ONLY valid JSON, no extra text
 """
 

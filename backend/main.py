@@ -7,7 +7,7 @@ from slowapi.util import get_remote_address
 
 from backend.utils.pdf_parser import parse_resume
 from backend.rag.indexing import get_index
-from backend.rag.retrieval import load_bm25, hybrid_retrieve
+from backend.rag.retrieval import load_bm25, hybrid_retrieve, rerank
 from backend.rag.skill_extractor import get_skill_gap, compute_market_intelligence
 from backend.rag.generation import generate_analysis
 
@@ -47,6 +47,7 @@ async def analyze(request: Request, file: UploadFile):
         raise HTTPException(status_code=400, detail=str(e))
 
     results      = hybrid_retrieve(resume_text, index, bm25, chunks)
+    results      = rerank(resume_text, results, chunk_lookup)
     market_intel = compute_market_intelligence(results, chunk_lookup)
     skill_data   = get_skill_gap(resume_text, results, chunk_lookup, market_intel)
     analysis     = generate_analysis(resume_text, results, skill_data, chunk_lookup, market_intel)

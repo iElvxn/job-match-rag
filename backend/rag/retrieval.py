@@ -1,10 +1,13 @@
+import os
 import pickle
 from collections import defaultdict
 
+import cohere
 from rank_bm25 import BM25Okapi
 from sentence_transformers import SentenceTransformer
 
 model = SentenceTransformer("all-mpnet-base-v2")
+co = cohere.ClientV2(api_key=os.getenv("COHERE_API_KEY"))
 
 
 def build_bm25(chunks: list[dict]) -> None:
@@ -79,3 +82,21 @@ def hybrid_retrieve(resume_text: str, index, bm25, chunks: list[dict], k: int = 
         f_bm25  = pool.submit(bm25_retrieve, resume_text, bm25, chunks, k)
         dense_res, bm25_res = f_dense.result(), f_bm25.result()
     return reciprocal_rank_fusion(dense_res, bm25_res)
+
+
+def rerank(query: str, results: list[dict], chunk_lookup: dict[str, str]) -> list[dict]:
+    """
+    Rerank RRF candidates using Cohere rerank-v3.5.
+
+    Cohere's cross-encoder reads (query, document) pairs together and returns
+    calibrated relevance scores (0-1). Returns all results reordered by relevance
+    score — deduplication and top-N selection are handled downstream by _group_by_job.
+    """
+    docs = [chunk_lookup.get(r["chunk_id"], "") for r in results]
+    response = co.rerank(
+        model="rerank-v3.5",
+        query=query,
+        documents=docs,
+    )
+    ranked = sorted(response.results, key=lambda x: x.relevance_score, reverse=True)
+    return [{**results[hit.index], "score": hit.relevance_score} for hit in ranked]

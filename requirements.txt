@@ -36,3 +36,6 @@ rank-bm25==0.2.2
 
 # Fuzzy skill matching
 rapidfuzz==3.12.2
+
+# Reranking
+cohere

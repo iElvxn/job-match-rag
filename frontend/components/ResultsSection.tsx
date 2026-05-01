@@ -51,7 +51,6 @@ export default function ResultsSection({ result, onReset }: Props) {
   const minRrf = Math.min(...rrfScores);
   const rrfRange = maxRrf - minRrf || 1;
 
-  // Normalize to [0.30, 0.95] so scores are meaningful relative to each other
   const enriched = rawEnriched.map((m) => ({
     ...m,
     rrf_score: 0.30 + 0.65 * ((m.rrf_score - minRrf) / rrfRange),

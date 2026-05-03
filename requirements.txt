@@ -21,9 +21,13 @@ langchain-community==0.4.1
 # Vector database
 pinecone==8.1.2
 
+# Reranking
+cohere==5.13.3
+
 # Evaluation
 ragas==0.4.3
 datasets==4.8.4
+bert-score==0.3.13
 
 # Utilities
 python-dotenv==1.2.2

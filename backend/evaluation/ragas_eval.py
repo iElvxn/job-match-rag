@@ -20,40 +20,41 @@ from datasets import Dataset
 
 load_dotenv()
 
-# Pin to gpt-4o-mini — ~$0.15/1M input vs $2.50 for gpt-4o
+# Pin to gpt-4o-mini — ~$0.15/1M input vs $2.50 for gpt-4o.
+# Boost max_tokens above the default so verdict generation doesn't truncate
+# (default gets cut off when verifying many statements at once).
 _openai_client = OpenAI()
-_ragas_llm = llm_factory("gpt-4o-mini", client=_openai_client)
+_ragas_llm = llm_factory("gpt-4o-mini", client=_openai_client, max_tokens=4096)
 faithfulness.llm = _ragas_llm
 
 
 def format_analysis_as_answer(analysis: dict) -> str:
     """
-    Extract only the grounded text claims from the analysis for RAGAS scoring.
+    Extract only the high-level claims that need verification for RAGAS faithfulness.
 
-    Faithfulness checks whether claims in the answer are supported by the
-    retrieved contexts. We include only the match reasoning and evidence
-    spans — not metadata like job_id or company — to keep token count low
-    and focus evaluation on the actual grounded claims.
+    Faithfulness measures whether claims in the answer are supported by the
+    retrieved contexts. We include only:
+      - match_reasoning: the natural-language claim that needs verification
+      - skill_gap names: the asserted skill gap claims
+
+    We deliberately exclude evidence spans — they are either direct excerpts
+    from the contexts (trivially grounded) or excerpts from the resume (not
+    accessible to RAGAS since it only sees the contexts). Including them
+    inflates statement count and hits LLM max_tokens limits.
+
+    We limit to the top 3 matches to keep statement count manageable.
     """
     lines = []
-    for match in analysis.get("matches", []):
+    for match in (analysis.get("matches") or [])[:3]:
         reasoning = match.get("match_reasoning", "")
         if reasoning:
-            lines.append(f"Match reasoning: {reasoning}")
-        for span in match.get("evidence", {}).get("job", []):
-            lines.append(f"Job evidence: {span}")
-        for span in match.get("evidence", {}).get("resume", []):
-            lines.append(f"Resume evidence: {span}")
-        for m in match.get("missing_alignment", []):
-            req = m.get("job_requirement", "") if isinstance(m, dict) else str(m)
-            if req:
-                lines.append(f"Missing requirement: {req}")
-    for gap in analysis.get("skill_gaps", []):
+            lines.append(reasoning)
+    for gap in (analysis.get("skill_gaps") or [])[:5]:
         if isinstance(gap, str):
             lines.append(f"Skill gap: {gap}")
-        elif isinstance(gap, dict):
-            lines.append(f"Skill gap: {gap.get('skill', '')}")
-    return "\n".join(lines) if lines else "No grounded claims found."
+        elif isinstance(gap, dict) and gap.get("skill"):
+            lines.append(f"Skill gap: {gap['skill']}")
+    return " ".join(lines) if lines else "No grounded claims found."
 
 
 def build_ragas_dataset(eval_records: list[dict]) -> Dataset:

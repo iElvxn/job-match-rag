@@ -57,13 +57,17 @@ def save_checkpoint(batch_idx: int) -> None:
         json.dump({"last_batch": batch_idx}, f)
 
 
-def main():
+def main(max_jobs: int | None = None):
     print("Loading dataset...")
     df = pd.read_csv("data/linkedin_jobs/postings.csv")
     print(f"  {len(df):,} total jobs")
 
     print("Prioritizing tech jobs...")
     df = prioritize_tech(df)
+
+    if max_jobs:
+        df = df.head(max_jobs)
+        print(f"  Capped to {len(df):,} jobs (--max-jobs {max_jobs})")
 
     print("Chunking jobs...")
     chunks = chunk_all_jobs(df)
@@ -91,4 +95,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--max-jobs", type=int, default=None,
+                        help="Cap number of jobs to index (default: all)")
+    args = parser.parse_args()
+    main(max_jobs=args.max_jobs)

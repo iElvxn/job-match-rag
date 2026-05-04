@@ -22,7 +22,7 @@ langchain-community==0.4.1
 pinecone==8.1.2
 
 # Reranking
-cohere==5.13.3
+cohere>=5.0,<6.0
 
 # Evaluation
 ragas==0.4.3
@@ -32,7 +32,7 @@ bert-score==0.3.13
 # Utilities
 python-dotenv==1.2.2
 pandas==2.3.3
-numpy==2.2.6
+numpy>=1.26,<2.0
 tiktoken==0.12.0
 
 # BM25 for hybrid retrieval + ablation
@@ -40,3 +40,9 @@ rank-bm25==0.2.2
 
 # Fuzzy skill matching
 rapidfuzz==3.12.2
+
+# Test resume PDF generation
+fpdf2==2.8.5
+
+# Kaggle dataset download
+kaggle==1.7.4.5

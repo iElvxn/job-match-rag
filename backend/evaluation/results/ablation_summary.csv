@@ -1,0 +1,16 @@
+condition,n,avg_time_s,avg_chunks,avg_gaps
+bm25_only_few_shot,15,27.24,30.0,26.0
+bm25_only_structured,15,19.67,30.0,26.0
+bm25_only_zero_shot,15,20.51,30.0,26.0
+dense_only_few_shot,15,17.48,30.0,22.3
+dense_only_structured,15,9.98,30.0,22.3
+dense_only_zero_shot,15,11.08,30.0,22.3
+hybrid_few_shot,15,29.19,30.0,25.6
+hybrid_rerank_few_shot,15,27.26,15.0,16.1
+hybrid_rerank_structured,15,20.09,15.0,16.1
+hybrid_rerank_zero_shot,15,20.68,15.0,16.1
+hybrid_structured,15,20.93,30.0,25.6
+hybrid_zero_shot,15,21.09,30.0,25.6
+no_rag_few_shot,15,1.11,0.0,0.0
+no_rag_structured,15,0.83,0.0,0.0
+no_rag_zero_shot,15,0.83,0.0,0.0

@@ -1,0 +1,1201 @@
+{
+  "aggregate": {
+    "no_rag": {
+      "n": 23,
+      "avg_recall": 0.0,
+      "avg_precision": 0.0,
+      "avg_f1": 0.0,
+      "avg_n_job_skills": 0.0
+    },
+    "bm25_only": {
+      "n": 23,
+      "avg_recall": 0.9072,
+      "avg_precision": 0.2118,
+      "avg_f1": 0.3327,
+      "avg_n_job_skills": 32.1
+    },
+    "dense_only": {
+      "n": 23,
+      "avg_recall": 0.8279,
+      "avg_precision": 0.2306,
+      "avg_f1": 0.3319,
+      "avg_n_job_skills": 29.5
+    },
+    "hybrid": {
+      "n": 23,
+      "avg_recall": 0.8694,
+      "avg_precision": 0.2095,
+      "avg_f1": 0.3254,
+      "avg_n_job_skills": 32.0
+    },
+    "hybrid_rerank": {
+      "n": 23,
+      "avg_recall": 0.8535,
+      "avg_precision": 0.2901,
+      "avg_f1": 0.4146,
+      "avg_n_job_skills": 22.7
+    }
+  },
+  "per_sample": {
+    "no_rag": [
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 8,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "ai_researcher.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 13,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "backend_engineer.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 8,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "career_changer.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 15,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "cloud_architect.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 12,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "data_engineer.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 8,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "data_scientist.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 11,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "devops_engineer.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 7,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "frontend_dev.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 14,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "fullstack_dev.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 11,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "ml_engineer.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 7,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "mobile_dev.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 8,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "new_grad_cs.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 9,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "product_manager_tech.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 8,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "security_engineer.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 17,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "senior_swe.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 4,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "sparse_minimal.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 2,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "sparse_grad.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 3,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "vocab_abbreviated.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 0,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "vocab_casual.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 8,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "cross_bioinformatics.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 3,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "cross_fintech.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 2,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "niche_rust_blockchain.pdf",
+        "retrieval_condition": "no_rag"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 1,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "niche_embedded.pdf",
+        "retrieval_condition": "no_rag"
+      }
+    ],
+    "bm25_only": [
+      {
+        "recall": 1.0,
+        "precision": 0.2857142857142857,
+        "f1": 0.4444444444444445,
+        "n_resume_skills": 8,
+        "n_job_skills": 28,
+        "n_matched": 8,
+        "resume_name": "ai_researcher.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 0.9230769230769231,
+        "precision": 0.27906976744186046,
+        "f1": 0.42857142857142855,
+        "n_resume_skills": 13,
+        "n_job_skills": 43,
+        "n_matched": 12,
+        "resume_name": "backend_engineer.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.21052631578947367,
+        "f1": 0.34782608695652173,
+        "n_resume_skills": 8,
+        "n_job_skills": 38,
+        "n_matched": 8,
+        "resume_name": "career_changer.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 0.8666666666666667,
+        "precision": 0.34210526315789475,
+        "f1": 0.4905660377358491,
+        "n_resume_skills": 15,
+        "n_job_skills": 38,
+        "n_matched": 13,
+        "resume_name": "cloud_architect.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.3,
+        "f1": 0.4615384615384615,
+        "n_resume_skills": 12,
+        "n_job_skills": 40,
+        "n_matched": 12,
+        "resume_name": "data_engineer.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 0.875,
+        "precision": 0.2692307692307692,
+        "f1": 0.411764705882353,
+        "n_resume_skills": 8,
+        "n_job_skills": 26,
+        "n_matched": 7,
+        "resume_name": "data_scientist.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.2972972972972973,
+        "f1": 0.4583333333333333,
+        "n_resume_skills": 11,
+        "n_job_skills": 37,
+        "n_matched": 11,
+        "resume_name": "devops_engineer.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.1891891891891892,
+        "f1": 0.3181818181818182,
+        "n_resume_skills": 7,
+        "n_job_skills": 37,
+        "n_matched": 7,
+        "resume_name": "frontend_dev.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.3111111111111111,
+        "f1": 0.4745762711864407,
+        "n_resume_skills": 14,
+        "n_job_skills": 45,
+        "n_matched": 14,
+        "resume_name": "fullstack_dev.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.3333333333333333,
+        "f1": 0.5,
+        "n_resume_skills": 11,
+        "n_job_skills": 33,
+        "n_matched": 11,
+        "resume_name": "ml_engineer.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.2916666666666667,
+        "f1": 0.45161290322580644,
+        "n_resume_skills": 7,
+        "n_job_skills": 24,
+        "n_matched": 7,
+        "resume_name": "mobile_dev.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.1951219512195122,
+        "f1": 0.326530612244898,
+        "n_resume_skills": 8,
+        "n_job_skills": 41,
+        "n_matched": 8,
+        "resume_name": "new_grad_cs.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 0.7777777777777778,
+        "precision": 0.2692307692307692,
+        "f1": 0.39999999999999997,
+        "n_resume_skills": 9,
+        "n_job_skills": 26,
+        "n_matched": 7,
+        "resume_name": "product_manager_tech.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.25,
+        "f1": 0.4,
+        "n_resume_skills": 8,
+        "n_job_skills": 32,
+        "n_matched": 8,
+        "resume_name": "security_engineer.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 0.8823529411764706,
+        "precision": 0.3,
+        "f1": 0.44776119402985076,
+        "n_resume_skills": 17,
+        "n_job_skills": 50,
+        "n_matched": 15,
+        "resume_name": "senior_swe.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.09090909090909091,
+        "f1": 0.16666666666666669,
+        "n_resume_skills": 4,
+        "n_job_skills": 44,
+        "n_matched": 4,
+        "resume_name": "sparse_minimal.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.06451612903225806,
+        "f1": 0.12121212121212122,
+        "n_resume_skills": 2,
+        "n_job_skills": 31,
+        "n_matched": 2,
+        "resume_name": "sparse_grad.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 0.6666666666666666,
+        "precision": 0.058823529411764705,
+        "f1": 0.10810810810810811,
+        "n_resume_skills": 3,
+        "n_job_skills": 34,
+        "n_matched": 2,
+        "resume_name": "vocab_abbreviated.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 0,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "vocab_casual.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 0.875,
+        "precision": 0.2692307692307692,
+        "f1": 0.411764705882353,
+        "n_resume_skills": 8,
+        "n_job_skills": 26,
+        "n_matched": 7,
+        "resume_name": "cross_bioinformatics.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.10344827586206896,
+        "f1": 0.1875,
+        "n_resume_skills": 3,
+        "n_job_skills": 29,
+        "n_matched": 3,
+        "resume_name": "cross_fintech.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.10526315789473684,
+        "f1": 0.1904761904761905,
+        "n_resume_skills": 2,
+        "n_job_skills": 19,
+        "n_matched": 2,
+        "resume_name": "niche_rust_blockchain.pdf",
+        "retrieval_condition": "bm25_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.05555555555555555,
+        "f1": 0.10526315789473684,
+        "n_resume_skills": 1,
+        "n_job_skills": 18,
+        "n_matched": 1,
+        "resume_name": "niche_embedded.pdf",
+        "retrieval_condition": "bm25_only"
+      }
+    ],
+    "dense_only": [
+      {
+        "recall": 0.125,
+        "precision": 0.3333333333333333,
+        "f1": 0.18181818181818182,
+        "n_resume_skills": 8,
+        "n_job_skills": 3,
+        "n_matched": 1,
+        "resume_name": "ai_researcher.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.8461538461538461,
+        "precision": 0.23404255319148937,
+        "f1": 0.36666666666666675,
+        "n_resume_skills": 13,
+        "n_job_skills": 47,
+        "n_matched": 11,
+        "resume_name": "backend_engineer.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.21052631578947367,
+        "f1": 0.34782608695652173,
+        "n_resume_skills": 8,
+        "n_job_skills": 38,
+        "n_matched": 8,
+        "resume_name": "career_changer.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.8666666666666667,
+        "precision": 0.41935483870967744,
+        "f1": 0.5652173913043478,
+        "n_resume_skills": 15,
+        "n_job_skills": 31,
+        "n_matched": 13,
+        "resume_name": "cloud_architect.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.8333333333333334,
+        "precision": 0.3125,
+        "f1": 0.45454545454545453,
+        "n_resume_skills": 12,
+        "n_job_skills": 32,
+        "n_matched": 10,
+        "resume_name": "data_engineer.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.875,
+        "precision": 0.28,
+        "f1": 0.42424242424242425,
+        "n_resume_skills": 8,
+        "n_job_skills": 25,
+        "n_matched": 7,
+        "resume_name": "data_scientist.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.3548387096774194,
+        "f1": 0.5238095238095238,
+        "n_resume_skills": 11,
+        "n_job_skills": 31,
+        "n_matched": 11,
+        "resume_name": "devops_engineer.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.8571428571428571,
+        "precision": 0.23076923076923078,
+        "f1": 0.36363636363636365,
+        "n_resume_skills": 7,
+        "n_job_skills": 26,
+        "n_matched": 6,
+        "resume_name": "frontend_dev.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.358974358974359,
+        "f1": 0.5283018867924528,
+        "n_resume_skills": 14,
+        "n_job_skills": 39,
+        "n_matched": 14,
+        "resume_name": "fullstack_dev.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.2972972972972973,
+        "f1": 0.4583333333333333,
+        "n_resume_skills": 11,
+        "n_job_skills": 37,
+        "n_matched": 11,
+        "resume_name": "ml_engineer.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.8571428571428571,
+        "precision": 0.24,
+        "f1": 0.375,
+        "n_resume_skills": 7,
+        "n_job_skills": 25,
+        "n_matched": 6,
+        "resume_name": "mobile_dev.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.17391304347826086,
+        "f1": 0.29629629629629634,
+        "n_resume_skills": 8,
+        "n_job_skills": 46,
+        "n_matched": 8,
+        "resume_name": "new_grad_cs.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.6428571428571429,
+        "f1": 0.782608695652174,
+        "n_resume_skills": 9,
+        "n_job_skills": 14,
+        "n_matched": 9,
+        "resume_name": "product_manager_tech.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.2222222222222222,
+        "f1": 0.3636363636363636,
+        "n_resume_skills": 8,
+        "n_job_skills": 36,
+        "n_matched": 8,
+        "resume_name": "security_engineer.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.8235294117647058,
+        "precision": 0.3333333333333333,
+        "f1": 0.4745762711864407,
+        "n_resume_skills": 17,
+        "n_job_skills": 42,
+        "n_matched": 14,
+        "resume_name": "senior_swe.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.10256410256410256,
+        "f1": 0.18604651162790695,
+        "n_resume_skills": 4,
+        "n_job_skills": 39,
+        "n_matched": 4,
+        "resume_name": "sparse_minimal.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.05263157894736842,
+        "f1": 0.1,
+        "n_resume_skills": 2,
+        "n_job_skills": 38,
+        "n_matched": 2,
+        "resume_name": "sparse_grad.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.6666666666666666,
+        "precision": 0.05,
+        "f1": 0.09302325581395349,
+        "n_resume_skills": 3,
+        "n_job_skills": 40,
+        "n_matched": 2,
+        "resume_name": "vocab_abbreviated.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 0,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "vocab_casual.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.625,
+        "precision": 0.22727272727272727,
+        "f1": 0.3333333333333333,
+        "n_resume_skills": 8,
+        "n_job_skills": 22,
+        "n_matched": 5,
+        "resume_name": "cross_bioinformatics.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 0.6666666666666666,
+        "precision": 0.09090909090909091,
+        "f1": 0.16,
+        "n_resume_skills": 3,
+        "n_job_skills": 22,
+        "n_matched": 2,
+        "resume_name": "cross_fintech.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.06451612903225806,
+        "f1": 0.12121212121212122,
+        "n_resume_skills": 2,
+        "n_job_skills": 31,
+        "n_matched": 2,
+        "resume_name": "niche_rust_blockchain.pdf",
+        "retrieval_condition": "dense_only"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.07142857142857142,
+        "f1": 0.13333333333333333,
+        "n_resume_skills": 1,
+        "n_job_skills": 14,
+        "n_matched": 1,
+        "resume_name": "niche_embedded.pdf",
+        "retrieval_condition": "dense_only"
+      }
+    ],
+    "hybrid": [
+      {
+        "recall": 0.875,
+        "precision": 0.2916666666666667,
+        "f1": 0.43750000000000006,
+        "n_resume_skills": 8,
+        "n_job_skills": 24,
+        "n_matched": 7,
+        "resume_name": "ai_researcher.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 0.8461538461538461,
+        "precision": 0.24444444444444444,
+        "f1": 0.37931034482758624,
+        "n_resume_skills": 13,
+        "n_job_skills": 45,
+        "n_matched": 11,
+        "resume_name": "backend_engineer.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.20512820512820512,
+        "f1": 0.3404255319148936,
+        "n_resume_skills": 8,
+        "n_job_skills": 39,
+        "n_matched": 8,
+        "resume_name": "career_changer.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 0.8666666666666667,
+        "precision": 0.3611111111111111,
+        "f1": 0.5098039215686274,
+        "n_resume_skills": 15,
+        "n_job_skills": 36,
+        "n_matched": 13,
+        "resume_name": "cloud_architect.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.3076923076923077,
+        "f1": 0.47058823529411764,
+        "n_resume_skills": 12,
+        "n_job_skills": 39,
+        "n_matched": 12,
+        "resume_name": "data_engineer.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 0.875,
+        "precision": 0.2413793103448276,
+        "f1": 0.3783783783783784,
+        "n_resume_skills": 8,
+        "n_job_skills": 29,
+        "n_matched": 7,
+        "resume_name": "data_scientist.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.28205128205128205,
+        "f1": 0.44000000000000006,
+        "n_resume_skills": 11,
+        "n_job_skills": 39,
+        "n_matched": 11,
+        "resume_name": "devops_engineer.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 0.8571428571428571,
+        "precision": 0.2,
+        "f1": 0.32432432432432434,
+        "n_resume_skills": 7,
+        "n_job_skills": 30,
+        "n_matched": 6,
+        "resume_name": "frontend_dev.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.3333333333333333,
+        "f1": 0.5,
+        "n_resume_skills": 14,
+        "n_job_skills": 42,
+        "n_matched": 14,
+        "resume_name": "fullstack_dev.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.2894736842105263,
+        "f1": 0.4489795918367347,
+        "n_resume_skills": 11,
+        "n_job_skills": 38,
+        "n_matched": 11,
+        "resume_name": "ml_engineer.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.30434782608695654,
+        "f1": 0.4666666666666667,
+        "n_resume_skills": 7,
+        "n_job_skills": 23,
+        "n_matched": 7,
+        "resume_name": "mobile_dev.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.17391304347826086,
+        "f1": 0.29629629629629634,
+        "n_resume_skills": 8,
+        "n_job_skills": 46,
+        "n_matched": 8,
+        "resume_name": "new_grad_cs.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 0.7777777777777778,
+        "precision": 0.3333333333333333,
+        "f1": 0.4666666666666666,
+        "n_resume_skills": 9,
+        "n_job_skills": 21,
+        "n_matched": 7,
+        "resume_name": "product_manager_tech.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.22857142857142856,
+        "f1": 0.3720930232558139,
+        "n_resume_skills": 8,
+        "n_job_skills": 35,
+        "n_matched": 8,
+        "resume_name": "security_engineer.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 0.9411764705882353,
+        "precision": 0.36363636363636365,
+        "f1": 0.5245901639344263,
+        "n_resume_skills": 17,
+        "n_job_skills": 44,
+        "n_matched": 16,
+        "resume_name": "senior_swe.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.1,
+        "f1": 0.18181818181818182,
+        "n_resume_skills": 4,
+        "n_job_skills": 40,
+        "n_matched": 4,
+        "resume_name": "sparse_minimal.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.06060606060606061,
+        "f1": 0.1142857142857143,
+        "n_resume_skills": 2,
+        "n_job_skills": 33,
+        "n_matched": 2,
+        "resume_name": "sparse_grad.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 0.6666666666666666,
+        "precision": 0.045454545454545456,
+        "f1": 0.08510638297872342,
+        "n_resume_skills": 3,
+        "n_job_skills": 44,
+        "n_matched": 2,
+        "resume_name": "vocab_abbreviated.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 0,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "vocab_casual.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 0.625,
+        "precision": 0.21739130434782608,
+        "f1": 0.3225806451612903,
+        "n_resume_skills": 8,
+        "n_job_skills": 23,
+        "n_matched": 5,
+        "resume_name": "cross_bioinformatics.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 0.6666666666666666,
+        "precision": 0.1,
+        "f1": 0.1739130434782609,
+        "n_resume_skills": 3,
+        "n_job_skills": 20,
+        "n_matched": 2,
+        "resume_name": "cross_fintech.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.09090909090909091,
+        "f1": 0.16666666666666669,
+        "n_resume_skills": 2,
+        "n_job_skills": 22,
+        "n_matched": 2,
+        "resume_name": "niche_rust_blockchain.pdf",
+        "retrieval_condition": "hybrid"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.043478260869565216,
+        "f1": 0.08333333333333333,
+        "n_resume_skills": 1,
+        "n_job_skills": 23,
+        "n_matched": 1,
+        "resume_name": "niche_embedded.pdf",
+        "retrieval_condition": "hybrid"
+      }
+    ],
+    "hybrid_rerank": [
+      {
+        "recall": 0.875,
+        "precision": 0.30434782608695654,
+        "f1": 0.4516129032258065,
+        "n_resume_skills": 8,
+        "n_job_skills": 23,
+        "n_matched": 7,
+        "resume_name": "ai_researcher.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.8461538461538461,
+        "precision": 0.34375,
+        "f1": 0.4888888888888889,
+        "n_resume_skills": 13,
+        "n_job_skills": 32,
+        "n_matched": 11,
+        "resume_name": "backend_engineer.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.3076923076923077,
+        "f1": 0.47058823529411764,
+        "n_resume_skills": 8,
+        "n_job_skills": 26,
+        "n_matched": 8,
+        "resume_name": "career_changer.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.8666666666666667,
+        "precision": 0.40625,
+        "f1": 0.5531914893617021,
+        "n_resume_skills": 15,
+        "n_job_skills": 32,
+        "n_matched": 13,
+        "resume_name": "cloud_architect.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.75,
+        "precision": 0.32142857142857145,
+        "f1": 0.45000000000000007,
+        "n_resume_skills": 12,
+        "n_job_skills": 28,
+        "n_matched": 9,
+        "resume_name": "data_engineer.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.875,
+        "precision": 0.3684210526315789,
+        "f1": 0.5185185185185185,
+        "n_resume_skills": 8,
+        "n_job_skills": 19,
+        "n_matched": 7,
+        "resume_name": "data_scientist.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.5,
+        "f1": 0.6666666666666666,
+        "n_resume_skills": 11,
+        "n_job_skills": 22,
+        "n_matched": 11,
+        "resume_name": "devops_engineer.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.8571428571428571,
+        "precision": 0.25,
+        "f1": 0.3870967741935483,
+        "n_resume_skills": 7,
+        "n_job_skills": 24,
+        "n_matched": 6,
+        "resume_name": "frontend_dev.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.4117647058823529,
+        "f1": 0.5833333333333334,
+        "n_resume_skills": 14,
+        "n_job_skills": 34,
+        "n_matched": 14,
+        "resume_name": "fullstack_dev.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.3793103448275862,
+        "f1": 0.5499999999999999,
+        "n_resume_skills": 11,
+        "n_job_skills": 29,
+        "n_matched": 11,
+        "resume_name": "ml_engineer.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.4375,
+        "f1": 0.6086956521739131,
+        "n_resume_skills": 7,
+        "n_job_skills": 16,
+        "n_matched": 7,
+        "resume_name": "mobile_dev.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.2962962962962963,
+        "f1": 0.45714285714285713,
+        "n_resume_skills": 8,
+        "n_job_skills": 27,
+        "n_matched": 8,
+        "resume_name": "new_grad_cs.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.7777777777777778,
+        "precision": 0.4666666666666667,
+        "f1": 0.5833333333333334,
+        "n_resume_skills": 9,
+        "n_job_skills": 15,
+        "n_matched": 7,
+        "resume_name": "product_manager_tech.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.3333333333333333,
+        "f1": 0.5,
+        "n_resume_skills": 8,
+        "n_job_skills": 24,
+        "n_matched": 8,
+        "resume_name": "security_engineer.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.8235294117647058,
+        "precision": 0.4375,
+        "f1": 0.5714285714285714,
+        "n_resume_skills": 17,
+        "n_job_skills": 32,
+        "n_matched": 14,
+        "resume_name": "senior_swe.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.125,
+        "f1": 0.2222222222222222,
+        "n_resume_skills": 4,
+        "n_job_skills": 32,
+        "n_matched": 4,
+        "resume_name": "sparse_minimal.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.08695652173913043,
+        "f1": 0.16,
+        "n_resume_skills": 2,
+        "n_job_skills": 23,
+        "n_matched": 2,
+        "resume_name": "sparse_grad.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.6666666666666666,
+        "precision": 0.058823529411764705,
+        "f1": 0.10810810810810811,
+        "n_resume_skills": 3,
+        "n_job_skills": 34,
+        "n_matched": 2,
+        "resume_name": "vocab_abbreviated.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0,
+        "n_resume_skills": 0,
+        "n_job_skills": 0,
+        "n_matched": 0,
+        "resume_name": "vocab_casual.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.625,
+        "precision": 0.38461538461538464,
+        "f1": 0.4761904761904762,
+        "n_resume_skills": 8,
+        "n_job_skills": 13,
+        "n_matched": 5,
+        "resume_name": "cross_bioinformatics.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 0.6666666666666666,
+        "precision": 0.25,
+        "f1": 0.36363636363636365,
+        "n_resume_skills": 3,
+        "n_job_skills": 8,
+        "n_matched": 2,
+        "resume_name": "cross_fintech.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.125,
+        "f1": 0.2222222222222222,
+        "n_resume_skills": 2,
+        "n_job_skills": 16,
+        "n_matched": 2,
+        "resume_name": "niche_rust_blockchain.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      },
+      {
+        "recall": 1.0,
+        "precision": 0.07692307692307693,
+        "f1": 0.14285714285714288,
+        "n_resume_skills": 1,
+        "n_job_skills": 13,
+        "n_matched": 1,
+        "resume_name": "niche_embedded.pdf",
+        "retrieval_condition": "hybrid_rerank"
+      }
+    ]
+  }
+}

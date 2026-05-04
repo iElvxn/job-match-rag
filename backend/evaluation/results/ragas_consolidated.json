@@ -1,0 +1,38 @@
+{
+  "bm25_only_zero_shot": {
+    "faithfulness": 0.7954
+  },
+  "bm25_only_structured": {
+    "faithfulness": 0.7136
+  },
+  "bm25_only_few_shot": {
+    "faithfulness": 0.7019
+  },
+  "dense_only_zero_shot": {
+    "faithfulness": 0.5862
+  },
+  "dense_only_structured": {
+    "faithfulness": 0.6093
+  },
+  "dense_only_few_shot": {
+    "faithfulness": 0.6943
+  },
+  "hybrid_zero_shot": {
+    "faithfulness": 0.696
+  },
+  "hybrid_structured": {
+    "faithfulness": 0.7322
+  },
+  "hybrid_few_shot": {
+    "faithfulness": 0.6696
+  },
+  "hybrid_rerank_zero_shot": {
+    "faithfulness": 0.7884
+  },
+  "hybrid_rerank_structured": {
+    "faithfulness": 0.7689
+  },
+  "hybrid_rerank_few_shot": {
+    "faithfulness": 0.588
+  }
+}
